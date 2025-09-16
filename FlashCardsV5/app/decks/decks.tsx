@@ -5,10 +5,12 @@ import { supabase } from "../utils/supabase";
 import { ThemedText } from "@/components/ThemedText";
 import { useUser } from "../context/userContext";
 import { listItemsStyles } from "../themedComponents/listItemStyles";
+import NewDeckModal from "./newDeckModal";
 
 export default function Decks() {
   const { userId, setUserId } = useUser();
   const [decks, setDecks] = useState([]);
+  const [showNewDeckModal, setShowNewDeckModal] = useState(false);
 
   useEffect(() => {
     getDecks();
@@ -23,7 +25,7 @@ export default function Decks() {
 
     let arr: any = [];
     res.data?.forEach((ele) => {
-    //   console.log(ele.deck_name);
+      //   console.log(ele.deck_name);
       arr.push(ele.deck_name);
     });
     setDecks(arr);
@@ -41,7 +43,9 @@ export default function Decks() {
             // onPress={() => selectDeck(item)}
             >
               <View style={listItemsStyles.itemContainer}>
-                <ThemedText style={listItemsStyles.itemPrimary}>{item}</ThemedText>
+                <ThemedText style={listItemsStyles.itemPrimary}>
+                  {item}
+                </ThemedText>
                 <ThemedText style={listItemsStyles.itemSecondary}>
                   Translation deck
                   {/* show what the forgien language is and how many cards are ready to be studied */}
@@ -55,7 +59,9 @@ export default function Decks() {
 
       <View>
         <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
+        <Button title="create new Deck" onPress={() => setShowNewDeckModal(true)}/>
       </View>
+      <NewDeckModal setShowNewDeckModal={setShowNewDeckModal} showNewDeckModal={showNewDeckModal}/>
     </SafeAreaView>
   );
 }
