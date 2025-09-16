@@ -8,7 +8,7 @@ export const MyDarkTheme: Theme = {
     primary: 'rgb(10, 132, 255)',
     background: 'rgba(46, 46, 46, 1)',
     card: 'rgb(18, 18, 18)',
-    text: 'rgb(229, 229, 231)',
+    text: 'rgba(221, 221, 221, 1)',
     border: 'rgb(39, 39, 41)',
     notification: 'rgb(255, 69, 58)',
   }
