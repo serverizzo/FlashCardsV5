@@ -6,7 +6,7 @@ import {
   Button,
   ScrollView,
   TouchableOpacity,
-  useColorScheme
+  useColorScheme,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { modalStyles } from "../themedComponents/modalStyles";
@@ -16,6 +16,7 @@ import { MyDarkTheme } from "../themedComponents/MyDarkTheme";
 import { useDeck } from "../context/deckContext";
 import { supabase } from "../utils/supabase";
 import { useUser } from "../context/userContext";
+import SearchableLangauge from "./SearchableLangauge";
 
 interface Props {
   showNewDeckModal: boolean;
@@ -114,7 +115,9 @@ export default function NewDeckModal({
             onChange={handleChange}
           />
           {!isSelected && (
-            <ScrollView style={{ minHeight: 40, maxHeight: 220, paddingBottom: 15 }}>
+            <ScrollView
+              style={{ minHeight: 40, maxHeight: 220, paddingBottom: 15 }}
+            >
               {searchValue === "" &&
                 deckType.map((deckType, index) => {
                   // return <Button key={index} title={item.language} />;
@@ -123,7 +126,10 @@ export default function NewDeckModal({
                       onPress={() => handlePress(deckType)}
                       key={index}
                     >
-                      <Text style={{ color: isDarkMode ? "white" : "black" }}> {deckType} </Text>
+                      <Text style={{ color: isDarkMode ? "white" : "black" }}>
+                        {" "}
+                        {deckType}{" "}
+                      </Text>
                     </TouchableOpacity>
                   );
                 })}
@@ -136,13 +142,21 @@ export default function NewDeckModal({
                         onPress={() => handlePress(deckType)}
                         key={index}
                       >
-                        <Text style={{ color: isDarkMode ? "white" : "black" }}> {deckType} </Text>
+                        <Text style={{ color: isDarkMode ? "white" : "black" }}>
+                          {" "}
+                          {deckType}{" "}
+                        </Text>
                       </TouchableOpacity>
                     );
                   })}
             </ScrollView>
           )}
         </View>
+        {searchValue == "Foreign language" && (
+          <View>
+            <SearchableLangauge />
+          </View>
+        )}
       </View>
 
       <Button title="add deck" onPress={() => createNewDeck()} />
