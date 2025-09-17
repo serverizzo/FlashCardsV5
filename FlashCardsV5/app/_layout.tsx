@@ -11,6 +11,7 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { UserProvider } from "./context/userContext";
 import { MyDarkTheme } from "./themedComponents/MyDarkTheme";
+import { DeckProvider } from "./context/deckContext";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -26,11 +27,13 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? MyDarkTheme : DefaultTheme}>
       <UserProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
+        <DeckProvider>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+        </DeckProvider>
       </UserProvider>
     </ThemeProvider>
   );
