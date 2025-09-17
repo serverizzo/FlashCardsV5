@@ -45,17 +45,7 @@ export default function NewDeckModal({
   const colorScheme = useColorScheme();
   const isDarkMode = colorScheme === "dark";
 
-  useEffect(() => {
-    console.log("isSelected: ", isSelected);
-  });
-
-  useEffect(() => {
-    console.log("searchValue: ", searchValue);
-  }, [searchValue]);
-
-  useEffect(() => {
-    console.log("newDeckName: ", newDeckName);
-  }, [newDeckName]);
+  
 
   const createNewDeck = async () => {
     console.log("create new deck");
