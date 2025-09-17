@@ -14,6 +14,8 @@ export const modalStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
+    padding:5,
+    // paddingBottom: 15
   },
   textbox:{
     height:80

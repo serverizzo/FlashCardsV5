@@ -6,6 +6,7 @@ import {
   Button,
   ScrollView,
   TouchableOpacity,
+  useColorScheme
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { modalStyles } from "../themedComponents/modalStyles";
@@ -40,18 +41,20 @@ export default function NewDeckModal({
     "Picture",
     "Standard",
   ]);
+  const colorScheme = useColorScheme();
+  const isDarkMode = colorScheme === "dark";
 
   useEffect(() => {
-    console.log("isSelected: ", isSelected)
-  })
+    console.log("isSelected: ", isSelected);
+  });
 
   useEffect(() => {
-    console.log("searchValue: ", searchValue)
-  }, [searchValue])
+    console.log("searchValue: ", searchValue);
+  }, [searchValue]);
 
   useEffect(() => {
-    console.log("newDeckName: ", newDeckName)
-  }, [newDeckName])
+    console.log("newDeckName: ", newDeckName);
+  }, [newDeckName]);
 
   const createNewDeck = async () => {
     console.log("create new deck");
@@ -111,7 +114,7 @@ export default function NewDeckModal({
             onChange={handleChange}
           />
           {!isSelected && (
-            <ScrollView style={{ minHeight: 40, maxHeight: 220 }}>
+            <ScrollView style={{ minHeight: 40, maxHeight: 220, paddingBottom: 15 }}>
               {searchValue === "" &&
                 deckType.map((deckType, index) => {
                   // return <Button key={index} title={item.language} />;
@@ -120,7 +123,7 @@ export default function NewDeckModal({
                       onPress={() => handlePress(deckType)}
                       key={index}
                     >
-                      <Text> {deckType} </Text>
+                      <Text style={{ color: isDarkMode ? "white" : "black" }}> {deckType} </Text>
                     </TouchableOpacity>
                   );
                 })}
@@ -133,14 +136,13 @@ export default function NewDeckModal({
                         onPress={() => handlePress(deckType)}
                         key={index}
                       >
-                        <Text> {deckType} </Text>
+                        <Text style={{ color: isDarkMode ? "white" : "black" }}> {deckType} </Text>
                       </TouchableOpacity>
                     );
                   })}
             </ScrollView>
           )}
         </View>
-        
       </View>
 
       <Button title="add deck" onPress={() => createNewDeck()} />

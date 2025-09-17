@@ -29,6 +29,7 @@ export function ThemedInput({ ...props }) {
     <TextInput
       style={isDarkMode ? [colorStyles.darkInput, baseStyles] : [colorStyles.lightInput, baseStyles]}
       placeholderTextColor={"gray"}
+      
       {...props}
     />
   );
@@ -63,7 +64,8 @@ const colorStyles = StyleSheet.create({
   darkInput: {
     borderColor: "lightgray",
     color: "white",
-    backgroundColor: "#1c1c1e",
+    backgroundColor: "rgba(46, 46, 46, 1)",
+    
   },
 
   lightText: {
