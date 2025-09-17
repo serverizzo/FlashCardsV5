@@ -13,14 +13,14 @@ import { ThemedText } from "@/components/ThemedText";
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const { userId, setUserId } = useUser();
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       if (session) {
         console.log(session.user.id);
-        setUserId(session.user.id) // ensure that Id is being set on every login or every return the app (since async storage should save the session to memory)
+        setUserId(session.user.id); // ensure that Id is being set on every login or every return the app (since async storage should save the session to memory)
       }
     });
 
@@ -33,20 +33,11 @@ export default function App() {
     if (session && session.user) {
       router.replace("/home");
     }
-  }, [session])
+  }, [session]);
 
   return (
     <View>
-      {session && session.user ? (
-        // <Account key={session.user.id} session={session} />
-        // <Account />
-        // <Decks />
-        // <DeckListRoute />
-        // {router.navigate("/(stack)/decklistroute")}
-        <ThemedText> Loading </ThemedText>
-      ) : (
-        <Auth />
-      )}
+      <Auth />
     </View>
   );
 }
