@@ -8,6 +8,9 @@ interface DeckContextType {
   cardsInDeck: CardType[] | null;
   setCardsInDeck: (cardsInDeck: string[] | null) => void;
 
+  deckId: number | null;
+  setDeckId: (deckId: number) => void;
+
   originalDeckLanguage: string | null;
   setOriginalDeckLanguage: (originalDeckLanguage: string | null) => void;
   translatedDeckLanguage: string | null;
@@ -16,16 +19,20 @@ interface DeckContextType {
   originalDeckLanguageCode: string | null;
   setOriginalDeckLanguageCode: (originalDeckLanguage: string | null) => void;
   translatedDeckLanguageCode: string | null;
-  setTranslatedDeckLanguageCode: (translatedDeckLanguage: string | null) => void;
+  setTranslatedDeckLanguageCode: (
+    translatedDeckLanguage: string | null
+  ) => void;
 }
-
 
 const DeckContext = createContext<DeckContextType>({
   deckName: null,
   setDeckName: () => {},
   cardsInDeck: null,
   setCardsInDeck: () => {},
-  
+
+  deckId: null,
+  setDeckId: () => {},
+
   originalDeckLanguage: null,
   setOriginalDeckLanguage: () => {},
   translatedDeckLanguage: null,
@@ -35,9 +42,7 @@ const DeckContext = createContext<DeckContextType>({
   setOriginalDeckLanguageCode: () => {},
   translatedDeckLanguageCode: null,
   setTranslatedDeckLanguageCode: () => {},
-  
 });
-
 
 export const DeckProvider = ({ children }) => {
   const [deckName, setDeckName] = useState("");
@@ -45,8 +50,9 @@ export const DeckProvider = ({ children }) => {
   const [originalDeckLanguage, setOriginalDeckLanguage] = useState("");
   const [translatedDeckLanguage, setTranslatedDeckLanguage] = useState("");
   const [originalDeckLanguageCode, setOriginalDeckLanguageCode] = useState("");
-  const [translatedDeckLanguageCode, setTranslatedDeckLanguageCode] = useState("");
-
+  const [translatedDeckLanguageCode, setTranslatedDeckLanguageCode] =
+    useState("");
+  const [deckId, setDeckId] = useState(-1);
 
   return (
     <DeckContext.Provider
@@ -55,6 +61,9 @@ export const DeckProvider = ({ children }) => {
         setDeckName,
         cardsInDeck,
         setCardsInDeck,
+
+        deckId,
+        setDeckId,
 
         originalDeckLanguage,
         setOriginalDeckLanguage,

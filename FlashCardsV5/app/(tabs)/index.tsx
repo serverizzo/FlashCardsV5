@@ -6,10 +6,14 @@ import { View } from "react-native";
 import { Session } from "@supabase/supabase-js";
 import { useUser } from "../context/userContext";
 import Decks from "../decks/decks";
+import DeckListRoute from "../(stack)/decklistroute";
+import { useRouter } from "expo-router";
+import { ThemedText } from "@/components/ThemedText";
 
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const { userId, setUserId } = useUser();
+  const router = useRouter()
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -25,12 +29,21 @@ export default function App() {
     });
   }, []);
 
+  useEffect(() => {
+    if (session && session.user) {
+      router.replace("/home");
+    }
+  }, [session])
+
   return (
     <View>
       {session && session.user ? (
         // <Account key={session.user.id} session={session} />
         // <Account />
-        <Decks />
+        // <Decks />
+        // <DeckListRoute />
+        // {router.navigate("/(stack)/decklistroute")}
+        <ThemedText> Loading </ThemedText>
       ) : (
         <Auth />
       )}

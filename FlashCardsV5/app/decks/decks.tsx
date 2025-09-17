@@ -6,11 +6,20 @@ import { ThemedText } from "@/components/ThemedText";
 import { useUser } from "../context/userContext";
 import { listItemsStyles } from "../themedComponents/listItemStyles";
 import NewDeckModal from "./newDeckModal";
+import { useDeck } from "../context/deckContext";
+import { useRouter } from "expo-router";
+
+interface DeckRows {
+  deck_name: string;
+  deck_id: number;
+}
 
 export default function Decks() {
   const { userId, setUserId } = useUser();
-  const [decks, setDecks] = useState([]);
+  const [decks, setDecks] = useState<DeckRows[] | null>([]);
   const [showNewDeckModal, setShowNewDeckModal] = useState(false);
+  const { setDeckName, setDeckId } = useDeck();
+  const router = useRouter();
 
   useEffect(() => {
     getDecks();
@@ -20,31 +29,39 @@ export default function Decks() {
     console.log("getting decks");
     const res = await supabase
       .from("deck")
-      .select("deck_name")
+      .select("deck_name, deck_id")
       .eq("user_id", userId);
 
     let arr: any = [];
-    res.data?.forEach((ele) => {
+    res.data?.forEach((ele: DeckRows) => {
       //   console.log(ele.deck_name);
-      arr.push(ele.deck_name);
+      console.log(ele);
+      arr.push(ele);
     });
     setDecks(arr);
   }
 
+  const selectDeck = (item: DeckRows) => {
+    setDeckName(item.deck_name);
+    setDeckId(item.deck_id);
+
+    // fetch card list
+
+    // navigate to card list
+    router.navigate("/cardlistroute")
+  };
+
   return (
     <SafeAreaView>
-      <ThemedText>Decks</ThemedText>
-
+      {/* <ThemedText>Decks</ThemedText> */}
       <View>
         <FlatList
           data={decks}
           renderItem={({ item }) => (
-            <TouchableOpacity
-            // onPress={() => selectDeck(item)}
-            >
+            <TouchableOpacity onPress={() => selectDeck(item)}>
               <View style={listItemsStyles.itemContainer}>
                 <ThemedText style={listItemsStyles.itemPrimary}>
-                  {item}
+                  {item.deck_name}
                 </ThemedText>
                 <ThemedText style={listItemsStyles.itemSecondary}>
                   Translation deck
@@ -59,9 +76,15 @@ export default function Decks() {
 
       <View>
         <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
-        <Button title="create new Deck" onPress={() => setShowNewDeckModal(true)}/>
+        <Button
+          title="create new Deck"
+          onPress={() => setShowNewDeckModal(true)}
+        />
       </View>
-      <NewDeckModal setShowNewDeckModal={setShowNewDeckModal} showNewDeckModal={showNewDeckModal}/>
+      <NewDeckModal
+        setShowNewDeckModal={setShowNewDeckModal}
+        showNewDeckModal={showNewDeckModal}
+      />
     </SafeAreaView>
   );
 }

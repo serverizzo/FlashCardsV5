@@ -30,6 +30,8 @@ export default function RootLayout() {
         <DeckProvider>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="(stack)/cardlistroute" options={{ title:'Card List', headerShown: true }} />            
+            <Stack.Screen name="(stack)/decklistroute" options={{ title:'Deck List', headerShown: true }} />            
             <Stack.Screen name="+not-found" />
           </Stack>
           <StatusBar style="auto" />
