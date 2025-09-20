@@ -48,11 +48,11 @@ export default function Decks() {
     // fetch card list
 
     // navigate to card list
-    router.navigate("/cardlistroute")
+    router.navigate("/cardlistroute");
   };
 
   return (
-    <SafeAreaView>
+    <View>
       {/* <ThemedText>Decks</ThemedText> */}
       <View>
         <FlatList
@@ -85,6 +85,6 @@ export default function Decks() {
         setShowNewDeckModal={setShowNewDeckModal}
         showNewDeckModal={showNewDeckModal}
       />
-    </SafeAreaView>
+    </View>
   );
 }
