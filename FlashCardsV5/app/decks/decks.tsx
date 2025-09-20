@@ -19,7 +19,7 @@ export default function Decks() {
   const { userId, setUserId } = useUser();
   const [decks, setDecks] = useState<DeckRows[] | null>([]);
   const [showNewDeckModal, setShowNewDeckModal] = useState(false);
-  const { setDeckName, setDeckId, setDeckType } = useDeck();
+  const { setDeckName, setDeckId, setDeckType, setCardsInDeck } = useDeck();
   const router = useRouter();
 
   useEffect(() => {
@@ -52,7 +52,12 @@ export default function Decks() {
     .select()
     .eq("deck_id", item.deck_id);
 
-    console.log(res)
+    // update the card list
+    let arr: any = []
+    res.data?.forEach((ele: any) => {
+      arr.push(ele)
+    })
+    setCardsInDeck(arr)
 
     // navigate to card list
     router.navigate("/cardlistroute");
