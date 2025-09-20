@@ -1,5 +1,5 @@
 
-export interface CardType{
+export interface ForeignLanguageCard{
   originalWord: string,
   translatedWord: string,
   exampleUsage: any

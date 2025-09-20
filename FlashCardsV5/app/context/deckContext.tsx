@@ -1,15 +1,18 @@
 import React, { createContext, useContext, useState } from "react";
 // import { CardType } from "../context/interfaces";
-import { CardType } from "../interfaces/CardType";
+import { ForeignLanguageCard } from "../interfaces/TranslationCard";
 
 interface DeckContextType {
   deckName: string | null;
   setDeckName: (deckName: string | null) => void;
-  cardsInDeck: CardType[] | null;
+  cardsInDeck: ForeignLanguageCard[] | null;
   setCardsInDeck: (cardsInDeck: string[] | null) => void;
 
   deckId: number | null;
   setDeckId: (deckId: number) => void;
+
+  deckType: string | null;
+  setDeckType: (deckType: string) => void;
 
   originalDeckLanguage: string | null;
   setOriginalDeckLanguage: (originalDeckLanguage: string | null) => void;
@@ -33,6 +36,9 @@ const DeckContext = createContext<DeckContextType>({
   deckId: null,
   setDeckId: () => {},
 
+  deckType: null,
+  setDeckType: () => {},
+
   originalDeckLanguage: null,
   setOriginalDeckLanguage: () => {},
   translatedDeckLanguage: null,
@@ -53,6 +59,7 @@ export const DeckProvider = ({ children }) => {
   const [translatedDeckLanguageCode, setTranslatedDeckLanguageCode] =
     useState("");
   const [deckId, setDeckId] = useState(-1);
+  const [deckType, setDeckType] = useState("")
 
   return (
     <DeckContext.Provider
@@ -64,6 +71,9 @@ export const DeckProvider = ({ children }) => {
 
         deckId,
         setDeckId,
+
+        deckType, 
+        setDeckType,
 
         originalDeckLanguage,
         setOriginalDeckLanguage,
